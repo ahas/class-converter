@@ -8,3 +8,5 @@ import { ToString } from "./to-string";
 import { IsEmpty } from "class-validator";
 
 export { ToArray, ToBoolean, ToDate, ToEnum, ToNumber, ToObject, ToString, IsEmpty };
+export * from "class-transformer";
+export * from "class-validator";
