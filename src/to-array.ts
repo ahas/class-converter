@@ -1,6 +1,7 @@
-import { Transform, Type, TypeHelpOptions } from "class-transformer";
+import { ClassConstructor, Transform, Type, TypeHelpOptions } from "class-transformer";
 import { IsArray } from "class-validator";
 import { applyOptions, ConverterOptions } from "./options";
+import { plainToInstance } from "class-transformer";
 
 const valueToArray = (value: any) => {
     if (value === null || value === undefined) {
@@ -23,29 +24,18 @@ export const ToArray = (
     converterOptions = converterOptions || {};
     converterOptions.each = true;
 
-    const toPlain: PropertyDecorator = Transform(
-        ({ value }) => {
-            return value;
-        },
-        {
-            toPlainOnly: true,
-        },
-    );
-    const toClass: PropertyDecorator = (target: object, propertyKey: string | symbol) => {
-        return Transform(
-            ({ obj }) => {
-                return valueToArray(obj[propertyKey]);
-            },
-            {
-                toClassOnly: true,
-            },
+    const toPlain: PropertyDecorator = Transform(({ value }) => value, { toPlainOnly: true });
+    const toClass: PropertyDecorator = (target: object, propertyKey: string | symbol) =>
+        Transform(
+            ({ obj }) =>
+                valueToArray(obj[propertyKey]).map((x) =>
+                    plainToInstance(typeFunction() as ClassConstructor<unknown>, x),
+                ),
+            { toClassOnly: true },
         )(target, propertyKey);
-    };
     return function (target: Object, propertyKey: string | symbol): void {
-        Type(typeFunction)(target, propertyKey);
         toPlain(target, propertyKey);
         toClass(target, propertyKey);
-        IsArray()(target, propertyKey);
 
         applyOptions(target, propertyKey, converterOptions);
     };
