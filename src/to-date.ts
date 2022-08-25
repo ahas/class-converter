@@ -6,8 +6,12 @@ export const ToDate = (converterOptions?: ConverterOptions): PropertyDecorator =
     converterOptions = converterOptions || {};
 
     return function (target: object, propertyKey: string | symbol): void {
-        IsDate(converterOptions)(target, propertyKey);
         Type(() => Date)(target, propertyKey);
+
+        if (converterOptions.validate) {
+            IsDate(converterOptions)(target, propertyKey);
+        }
+
         applyOptions(target, propertyKey, converterOptions);
     };
 };

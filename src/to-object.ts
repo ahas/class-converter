@@ -9,8 +9,12 @@ export const ToObject = (
     converterOptions = converterOptions || {};
 
     return function (target: object, propertyKey: string | symbol): void {
-        IsObject()(target, propertyKey);
         Type(typeFunction)(target, propertyKey);
+
+        if (converterOptions.validate) {
+            IsObject()(target, propertyKey);
+        }
+
         applyOptions(target, propertyKey, converterOptions, typeFunction);
     };
 };

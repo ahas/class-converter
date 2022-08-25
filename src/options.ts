@@ -6,6 +6,7 @@ export interface ConverterOptions extends ValidationOptions {
     optional?: boolean;
     api?: boolean;
     nested?: boolean;
+    validate?: boolean;
     empty?: boolean;
     exclude?: ExcludeOptions | boolean;
     expose?: ExposeOptions | boolean;

@@ -42,10 +42,14 @@ export const ToArray = (
         )(target, propertyKey);
     };
     return function (target: Object, propertyKey: string | symbol): void {
-        IsArray()(target, propertyKey);
-        Type(typeFunction)(target, propertyKey);
         toPlain(target, propertyKey);
         toClass(target, propertyKey);
+        Type(typeFunction)(target, propertyKey);
+
+        if (converterOptions.validate) {
+            IsArray()(target, propertyKey);
+        }
+
         applyOptions(target, propertyKey, converterOptions);
     };
 };

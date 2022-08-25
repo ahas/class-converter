@@ -8,8 +8,12 @@ export const ToString = (
     converterOptions = converterOptions || {};
 
     return function (target: object, propertyKey: string | symbol): void {
-        IsString(converterOptions,)(target, propertyKey);
         Type(() => String)(target, propertyKey);
+
+        if (converterOptions.validate) {
+            IsString(converterOptions,)(target, propertyKey);
+        }
+
         applyOptions(target, propertyKey, converterOptions);
     };
 };
