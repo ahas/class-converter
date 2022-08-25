@@ -10,7 +10,7 @@ const valueToArray = (value: any) => {
     if (Array.isArray(value)) {
         return value;
     }
-    if (["empty", "[]"].includes(value.toLowerCase())) {
+    if (typeof value === "string" && ["empty", "[]"].includes(value.toLowerCase())) {
         return [];
     }
 
