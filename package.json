@@ -1,6 +1,6 @@
 {
     "name": "@ahas/class-converter",
-    "version": "1.0.9",
+    "version": "1.1.9",
     "description": "decorator combination with @nestjs/swagger, class-transformer, class-validator",
     "main": "dist/index.js",
     "repository": {
