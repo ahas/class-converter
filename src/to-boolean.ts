@@ -40,9 +40,9 @@ export const ToBoolean = (converterOptions?: ConverterOptions): PropertyDecorato
         )(target, propertyKey);
     };
     return function (target: object, propertyKey: string | symbol): void {
+        Type(() => Boolean)(target, propertyKey);
         toPlain(target, propertyKey);
         toClass(target, propertyKey);
-        Type(() => Boolean)(target, propertyKey);
 
         if (converterOptions.validate) {
             IsBoolean(converterOptions)(target, propertyKey);
