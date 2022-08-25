@@ -10,10 +10,7 @@ export const ToObject = (
 
     return function (target: object, propertyKey: string | symbol): void {
         Type(typeFunction)(target, propertyKey);
-
-        if (converterOptions.validate) {
-            IsObject()(target, propertyKey);
-        }
+        IsObject()(target, propertyKey);
 
         applyOptions(target, propertyKey, converterOptions, typeFunction);
     };

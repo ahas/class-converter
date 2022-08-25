@@ -7,10 +7,7 @@ export const ToDate = (converterOptions?: ConverterOptions): PropertyDecorator =
 
     return function (target: object, propertyKey: string | symbol): void {
         Type(() => Date)(target, propertyKey);
-
-        if (converterOptions.validate) {
-            IsDate(converterOptions)(target, propertyKey);
-        }
+        IsDate(converterOptions)(target, propertyKey);
 
         applyOptions(target, propertyKey, converterOptions);
     };

@@ -45,10 +45,7 @@ export const ToArray = (
         Type(typeFunction)(target, propertyKey);
         toPlain(target, propertyKey);
         toClass(target, propertyKey);
-
-        if (converterOptions.validate) {
-            IsArray()(target, propertyKey);
-        }
+        IsArray()(target, propertyKey);
 
         applyOptions(target, propertyKey, converterOptions);
     };

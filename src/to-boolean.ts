@@ -43,10 +43,7 @@ export const ToBoolean = (converterOptions?: ConverterOptions): PropertyDecorato
         Type(() => Boolean)(target, propertyKey);
         toPlain(target, propertyKey);
         toClass(target, propertyKey);
-
-        if (converterOptions.validate) {
-            IsBoolean(converterOptions)(target, propertyKey);
-        }
+        IsBoolean(converterOptions)(target, propertyKey);
 
         applyOptions(target, propertyKey, converterOptions);
     };

@@ -12,13 +12,10 @@ export const ToNumber = (toNumberOptions?: ToNumberOptions): PropertyDecorator =
 
     return function (target: object, propertyKey: string | symbol): void {
         Type(() => Number)(target, propertyKey);
+        IsNumber(toNumberOptions, toNumberOptions)(target, propertyKey);
 
-        if (toNumberOptions.validate) {
-            IsNumber(toNumberOptions, toNumberOptions)(target, propertyKey);
-
-            if (toNumberOptions.int) {
-                IsInt(toNumberOptions)(target, propertyKey);
-            }
+        if (toNumberOptions.int) {
+            IsInt(toNumberOptions)(target, propertyKey);
         }
 
         applyOptions(target, propertyKey, toNumberOptions);
